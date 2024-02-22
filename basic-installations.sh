@@ -170,7 +170,12 @@ install_packages() {
 
 # Function to change sources.list
 change_sources_list() {
-  choice=$(echo -e "linuxdebian.mx - Powered by Last Dragon - AMD64\ndeb.debian.org\nReturn to main menu" | fzf --reverse)
+  submenu=(
+    "linuxdebian.mx - Powered by Last Dragon - AMD64"
+    "deb.debian.org"
+    "Return to main menu"
+  )
+  choice=$(printf "%s\n" "${submenu[@]}" | fzf --reverse)
 
   case $choice in
     "linuxdebian.mx - Powered by Last Dragon - AMD64")      
@@ -232,29 +237,39 @@ copy_xterm_configuration() {
 }
 
 # Main menu
+menu=(
+  "1 Change sources.list"
+  "2 Install BSPWM"
+  "3 Install Openbox"
+  "4 Install General Apps"
+  "5 Copy kitty terminal configuration"
+  "6 Copy xterm terminal configuration"
+  "7 Exit"
+)
+
 while true; do
-  choice=$(echo -e "Change sources.list\nInstall BSPWM\nInstall Openbox\nInstall General Apps\nCopy kitty terminal configuration\nCopy xterm terminal configuration\nExit" | fzf --reverse)
+  choice=$(printf "%s\n" "${menu[@]}" | fzf --reverse)
 
   case $choice in
-    "Change sources.list")
+    "1 Change sources.list")
       change_sources_list
       ;;
-    "Install BSPWM")
+    "2 Install BSPWM")
       install_packages "${common_packages[@]}" "${bspwm_packages[@]}"
       ;;
-    "Install Openbox")
+    "3 Install Openbox")
       install_packages "${common_packages[@]}" "${openbox_packages[@]}"
       ;;
-    "Install General Apps")
+    "4 Install General Apps")
       install_packages "${general_apps[@]}"
       ;;
-    "Copy kitty terminal configuration")
+    "5 Copy kitty terminal configuration")
       copy_kitty_configuration
       ;;
-    "Copy xterm terminal configuration")
+    "6 Copy xterm terminal configuration")
       copy_xterm_configuration
       ;;
-    "Exit")
+    "7 Exit")
       echo "Exiting..."
       exit 0
       ;;
