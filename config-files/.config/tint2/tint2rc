@@ -1,0 +1,58 @@
+# Configuración básica de Tint2
+# (renombrar, modificar y distribuir libremente)
+# ================================================
+
+# Panel
+panel_items = LTSC
+panel_size = 100% 28
+panel_margin = 0 0
+panel_padding = 6 0 6
+panel_background_id = 0
+panel_position = top
+
+# Fondo del panel
+background_color = #444444 100
+border_width = 0
+border_color = #4A4A4A 100
+
+# Reloj
+time1_format = %d/%m/%y %H:%M 
+time1_font = Fira Code 9
+time1_font_color = #FFFFFF 100
+#time2_format = %A %d %B
+#time2_font = Fira Code 8
+#time2_font_color = #FFFFFF 80
+clock_font_color = #FFFFFF 80
+
+# Barra de tareas
+taskbar_mode = desktop
+taskbar_style = icons
+taskbar_padding = 0 3
+taskbar_background_id = 0
+taskbar_active_background_id = 0
+taskbar_icon_size = 20
+taskbar_font = Fira Code 8
+taskbar_font_color = #FFFFFF 80
+taskbar_active_font_color = #FFFFFF 100
+taskbar_tooltip = 0
+
+# Iconos del sistema
+systray_icon_theme = Numix
+systray_padding = 0 4 4
+systray_sort = ascending
+systray_background_id = 0
+systray_icon_size = 20
+
+# Menú de aplicaciones
+launcher_padding = 4 4
+launcher_background_id = 0
+launcher_icon_size = 24
+launcher_font = Fira Code 8
+launcher_font_color = #FFFFFF 80
+launcher_item_app = /usr/share/applications/firefox-esr.desktop
+launcher_item_app = /usr/share/applications/pcmanfm.desktop
+launcher_item_app = /usr/share/applications/kitty.desktop
+#launcher_item_app = ~/.local/share/applications/kitty.desktop
+
+# Espacio libre
+systray_notification = 1 3 3

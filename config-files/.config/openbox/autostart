@@ -1,0 +1,8 @@
+#! /bin/bash
+tint2 &
+volumeicon &
+nm-applet &
+picom --no-vsync &
+xrandr --output LVDS --off --output HDMI-0 --primary --mode 1600x900 --pos 0x0 --rotate normal --output VGA-0 --off
+xautolock -time 10 -locker slock &
+feh --bg-fill ~/Pictures/wallpaper.jpg
