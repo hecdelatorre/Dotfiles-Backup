@@ -212,6 +212,48 @@ deb-src http://deb.debian.org/debian/ bullseye-updates main contrib non-free
       ;;
   esac
 }
+# Create pictures folder
+create_pictures() {
+if [ ! -d $HOME/Pictures ]; then
+  mkdir -p $HOME/Pictures
+fi
+curl -fsSL https://codeberg.org/hecdelatorre/Dotfiles-Backup/raw/branch/main/config-files/w.jpg > "$HOME/Pictures/wallpaper.jpg"
+}
+
+# Copy BSPWM configuration files
+copy_bswm_configuration() {
+  if [ -d "$config/bspwm" ]; then
+    rm -rf "$config/bspwm"
+  fi
+  if [ -d "$config/sxhkd" ]; then
+    rm -rf "$config/sxhkd"
+  fi
+  if [ -d "$config/polybar" ]; then
+    rm -rf "$config/polybar"
+  fi
+  if [ -d "$config/picom" ]; then
+    rm -rf "$config/picom"
+  fi
+  curl -fsSL https://codeberg.org/hecdelatorre/Dotfiles-Backup/raw/branch/main/config-files/bspwm-sxhkd-polybar-picom.tar.xz | tar Jxf - -C "$config"
+  cp -f /etc/X11/xinit/xinitrc  "$HOME/.xinitrc"
+  create_pictures
+}
+
+# Copy Openbox configuration files
+copy_openbox_configuration() {
+  if [ -d "$config/openbox" ]; then
+    rm -rf "$config/openbox"
+  fi
+  if [ -d "$config/tint2" ]; then
+    rm -rf "$config/tint2"
+  fi
+  if [ -d "$config/picom" ]; then
+    rm -rf "$config/picom"
+  fi
+  curl -fsSL https://codeberg.org/hecdelatorre/Dotfiles-Backup/raw/branch/main/config-files/openbox-tint2-picom.tar.xz | tar Jxf - -C "$config"
+  cp -f /etc/X11/xinit/xinitrc  "$HOME/.xinitrc"
+  create_pictures
+}
 
 # Function to copy kitty configuration
 copy_kitty_configuration() {
@@ -256,9 +298,11 @@ while true; do
       ;;
     "2 Install BSPWM")
       install_packages "${common_packages[@]}" "${bspwm_packages[@]}"
+      copy_bswm_configuration
       ;;
     "3 Install Openbox")
       install_packages "${common_packages[@]}" "${openbox_packages[@]}"
+      copy_openbox_configuration
       ;;
     "4 Install General Apps")
       install_packages "${general_apps[@]}"
