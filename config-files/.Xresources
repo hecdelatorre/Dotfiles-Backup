@@ -3,41 +3,39 @@ xterm*faceName: IBM Plex Mono
 xterm*faceSize: 11
  
 ! Changing foreground/background color
-! Theme kibble
-! font
-xterm*background: rgb:30/30/30
+xterm*background: rgb:48/59/67
 xterm*foreground: rgb:ab/b2/bf
 
 ! black
-xterm*color0:     rgb:4d/4d/4d
-xterm*color8:     rgb:5a/5a/5a
+xterm*color0:     rgb:28/2c/34
+xterm*color8:     rgb:5d/67/7a
 ! red
-xterm*color1:     rgb:c7/00/31
-xterm*color9:     rgb:f0/15/78
+xterm*color1:     rgb:e0/6c/75
+xterm*color9:     rgb:e0/6c/75
 ! green
-xterm*color2:     rgb:29/cf/13
-xterm*color10:    rgb:6c/e0/5c
+xterm*color2:     rgb:98/c3/79
+xterm*color10:    rgb:98/c3/79
 ! yellow
-xterm*color3:     rgb:d8/e3/0e
-xterm*color11:    rgb:f3/f7/9e
+xterm*color3:     rgb:e5/c0/7b
+xterm*color11:    rgb:e5/c0/7b
 ! blue
-xterm*color4:     rgb:34/49/d1
-xterm*color12:    rgb:97/a4/f7
+xterm*color4:     rgb:61/af/ef
+xterm*color12:    rgb:61/af/ef
 ! magenta
-xterm*color5:     rgb:84/00/ff
-xterm*color13:    rgb:c4/95/f0
+xterm*color5:     rgb:c6/78/dd
+xterm*color13:    rgb:c6/78/dd
 ! cyan
-xterm*color6:     rgb:07/98/ab
-xterm*color14:    rgb:68/f2/e0
+xterm*color6:     rgb:56/b6/c2
+xterm*color14:    rgb:56/b6/c2
 ! white
-xterm*color7:     rgb:e2/d1/e3
-xterm*color15:    rgb:ff/ff/ff
+xterm*color7:     rgb:dc/df/e4
+xterm*color15:    rgb:dc/df/e4
 
 xterm*cursorColor: rgb:d6/d6/d6
 
 ! Adding a scroll-bar on the right side
 xterm*scrollBar: true
-xterm*rightScrollBar:true
+xterm*rightScrollBar: true
  
 ! prevent jumping back to the last line with new output
 xterm*scrollTtyOutput: false

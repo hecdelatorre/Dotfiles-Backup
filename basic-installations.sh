@@ -8,6 +8,18 @@ then
     sudo apt install -y fzf
 fi
 
+# Check if the .config folder exists, if it does not exist, create it.
+config="$HOME/.config/"
+if [ ! -d "$config" ]; then
+  mkdir "$config"
+fi
+
+# Check if the tipography folder exists, in case it does not exist, create it.
+tipography_folder="$HOME/.local/share/fonts"
+if [ ! -d "$tipography_folder" ]; then
+  mkdir -p "$tipography_folder"
+fi
+
 # Common packages
 common_packages=(
   # System utilities
@@ -196,9 +208,32 @@ deb-src http://deb.debian.org/debian/ bullseye-updates main contrib non-free
   esac
 }
 
+# Function to copy kitty configuration
+copy_kitty_configuration() {
+  if [ -d "$config/kitty" ]; then
+      rm -rf "$config/kitty"
+  fi
+  sudo apt install -y kitty
+  curl -fsSL https://codeberg.org/hecdelatorre/Dotfiles-Backup/raw/branch/main/config-files/kitty.tar.xz | tar Jxf - -C "$config"
+}
+
+# Function to copy xterm configuration
+copy_xterm_configuration() {
+  tipography_ibm="$tipography_folder/IBM-Plex-Sans"
+  if [ ! -d "$tipography_ibm" ]; then
+    curl -fsSL https://github.com/IBM/plex/releases/download/v6.4.0/OpenType.zip -o tem.zip
+    unzip -q tem.zip 
+    rm -f tem.zip 
+    mv -f OpenType "$tipography_ibm"
+  fi
+  sudo apt install -y xterm
+  curl -fsSL https://codeberg.org/hecdelatorre/Dotfiles-Backup/raw/branch/main/config-files/.Xresources | tee "$HOME/.Xresources"
+  xrdb -merge ~/.Xresources
+}
+
 # Main menu
 while true; do
-  choice=$(echo -e "Change sources.list\nInstall BSPWM\nInstall Openbox\nInstall General Apps\nExit" | fzf --reverse)
+  choice=$(echo -e "Change sources.list\nInstall BSPWM\nInstall Openbox\nInstall General Apps\nCopy kitty terminal configuration\nCopy xterm terminal configuration\nExit" | fzf --reverse)
 
   case $choice in
     "Change sources.list")
@@ -212,6 +247,12 @@ while true; do
       ;;
     "Install General Apps")
       install_packages "${general_apps[@]}"
+      ;;
+    "Copy kitty terminal configuration")
+      copy_kitty_configuration
+      ;;
+    "Copy xterm terminal configuration")
+      copy_xterm_configuration
       ;;
     "Exit")
       echo "Exiting..."
