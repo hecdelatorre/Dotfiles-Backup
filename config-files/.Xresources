@@ -3,7 +3,9 @@ xterm*faceName: IBM Plex Mono
 xterm*faceSize: 11
  
 ! Changing foreground/background color
-xterm*background: rgb:48/59/67
+! Onehalf theme
+! font
+xterm*background: rgb:30/30/30
 xterm*foreground: rgb:ab/b2/bf
 
 ! black
@@ -35,7 +37,7 @@ xterm*cursorColor: rgb:d6/d6/d6
 
 ! Adding a scroll-bar on the right side
 xterm*scrollBar: true
-xterm*rightScrollBar: true
+xterm*rightScrollBar:true
  
 ! prevent jumping back to the last line with new output
 xterm*scrollTtyOutput: false
