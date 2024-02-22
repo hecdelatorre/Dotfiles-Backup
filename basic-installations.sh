@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# Check if fzf is installed
+if ! command -v fzf &> /dev/null
+then
+    echo "fzf could not be found, installing now..."
+    sudo apt update
+    sudo apt install -y fzf
+fi
+
 # Common packages
 common_packages=(
   # System utilities
@@ -150,13 +158,10 @@ install_packages() {
 
 # Function to change sources.list
 change_sources_list() {
-  echo "0. linuxdebian.mx - Powered by Last Dragon - AMD64"
-  echo "1. deb.debian.org"
-  echo "2. Return to main menu"
-  read -p "Enter a number: " choice
+  choice=$(echo -e "linuxdebian.mx - Powered by Last Dragon - AMD64\ndeb.debian.org\nReturn to main menu" | fzf --reverse)
 
   case $choice in
-    0)      
+    "linuxdebian.mx - Powered by Last Dragon - AMD64")      
       echo "
 deb http://repo.linuxdebian.mx/debian/ bookworm main non-free-firmware non-free contrib
 deb-src http://repo.linuxdebian.mx/debian/ bookworm main non-free-firmware non-free contrib
@@ -169,7 +174,7 @@ deb-src http://repo.linuxdebian.mx/debian/ bookworm-updates main non-free-firmwa
 " | sudo tee /etc/apt/sources.list
       sudo apt update    
       ;;
-    1)
+    "deb.debian.org")
       echo "
 deb http://deb.debian.org/debian/ bullseye main non-free contrib
 deb-src http://deb.debian.org/debian/ bullseye main non-free contrib
@@ -182,43 +187,38 @@ deb-src http://deb.debian.org/debian/ bullseye-updates main contrib non-free
 " | sudo tee /etc/apt/sources.list
       sudo apt update
       ;;
-    2)
+    "Return to main menu")
       return 0
       ;;
     *)
-      echo "Invalid choice. Please enter a number between 0 and 2."
+      echo "Invalid choice. Please enter a valid option."
       ;;
   esac
 }
 
 # Main menu
 while true; do
-  echo "0. Change sources.list"
-  echo "1. Install BSPWM"
-  echo "2. Install Openbox"
-  echo "3. Install General Apps"
-  echo "4. Exit"
-  read -p "Enter a number: " choice
+  choice=$(echo -e "Change sources.list\nInstall BSPWM\nInstall Openbox\nInstall General Apps\nExit" | fzf --reverse)
 
   case $choice in
-    0)
+    "Change sources.list")
       change_sources_list
       ;;
-    1)
+    "Install BSPWM")
       install_packages "${common_packages[@]}" "${bspwm_packages[@]}"
       ;;
-    2)
+    "Install Openbox")
       install_packages "${common_packages[@]}" "${openbox_packages[@]}"
       ;;
-    3)
+    "Install General Apps")
       install_packages "${general_apps[@]}"
       ;;
-    4)
+    "Exit")
       echo "Exiting..."
       exit 0
       ;;
     *)
-      echo "Invalid choice. Please enter a number between 0 and 4."
+      echo "Invalid choice. Please enter a valid option."
       ;;
   esac
 done
