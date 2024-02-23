@@ -144,6 +144,7 @@ openbox_packages=(
 general_apps=(
   ssh
   git
+  zsh
   aria2
   axel
   ranger
@@ -297,6 +298,35 @@ copy_vim_neovim_configuration() {
   echo -e "Install nodejs for coc\nhttps://github.com/nodesource/distributions?tab=readme-ov-file#debian-and-ubuntu-based-distributions"
 }
 
+copy_zsh_configuration() {
+  sudo apt install zsh -y
+  submenuzsh=(
+    "zsh configuration - common.zsh-theme"
+    "zsh configuration - simple"
+    "Return to main menu"
+  )
+  choice=$(printf "%s\n" "${submenuzsh[@]}" | fzf --reverse)
+
+  case $choice in
+    "zsh configuration - common.zsh-theme")
+      chsh -s $(which zsh) $USER
+      curl -fsSL https://github.com/hecdelatorre/common/raw/master/common.zsh-theme > "$HOME/.zsh_prompt"
+      curl -fsSL https://codeberg.org/hecdelatorre/Dotfiles-Backup/raw/branch/main/config-files/.zshrc > "$HOME/.zshrc"
+      ;;
+    "zsh configuration - simple")
+      chsh -s $(which zsh) $USER
+      echo "PROMPT=' %F{cyan}%1/%f %F{green}❯%f '" > "$HOME/.zsh_prompt"
+      curl -fsSL https://codeberg.org/hecdelatorre/Dotfiles-Backup/raw/branch/main/config-files/.zshrc > "$HOME/.zshrc"
+      ;;
+    "Return to main menu")
+      return 0
+      ;;
+    *)
+      echo "Invalid choice. Please enter a valid option."
+      ;;
+  esac
+}
+
 # Main menu
 menu=(
   "1 Change sources.list"
@@ -306,7 +336,8 @@ menu=(
   "5 Copy kitty terminal configuration"
   "6 Copy xterm terminal configuration"
   "7 Copy vim and neovim configuration"
-  "8 Exit"
+  "8 Copy zsh configuration"
+  "9 Exit"
 )
 
 while true; do
@@ -339,7 +370,10 @@ while true; do
       copy_vim_neovim_configuration
       enter_continue
       ;;
-    "8 Exit")
+    "8 Copy zsh configuration")
+      copy_zsh_configuration
+      ;;
+    "9 Exit")
       echo "Exiting..."
       exit 0
       ;;
