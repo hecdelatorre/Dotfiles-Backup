@@ -15,6 +15,10 @@ sudo apt install -y curl
 To add a user to the sudo group, execute the following command as root:
 
 ```bash
+bash -c "$(curl -fsSL http://tiny.cc/8nhzwz)"
+```
+
+```bash
 bash -c "$(curl -fsSL https://codeberg.org/hecdelatorre/Dotfiles-Backup/raw/branch/main/add_user_sudo.sh)"
 ```
 
@@ -23,6 +27,10 @@ This command will prompt you to enter the username you wish to add to the sudo g
 ## Basic Installations
 
 The basic-installations.sh script provided by Dotfiles-Backup automates the setup and installation of common packages and configurations for a Debian-based system. To run this script as a non-root user, execute the following command:
+
+```bash
+bash -c "$(curl -fsSL http://tiny.cc/inhzwz)"
+```
 
 ```bash
 bash -c "$(curl -fsSL https://codeberg.org/hecdelatorre/Dotfiles-Backup/raw/branch/main/basic-installations.sh)"
