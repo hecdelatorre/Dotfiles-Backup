@@ -20,6 +20,11 @@ if [ ! -d "$tipography_folder" ]; then
   mkdir -p "$tipography_folder"
 fi
 
+enter_continue() {
+  echo "Press Enter to continue..."
+  read
+}
+
 # Common packages
 common_packages=(
   # System utilities
@@ -237,6 +242,7 @@ copy_bswm_configuration() {
   curl -fsSL https://codeberg.org/hecdelatorre/Dotfiles-Backup/raw/branch/main/config-files/bspwm-sxhkd-polybar-picom.tar.xz | tar Jxf - -C "$config"
   cp -f /etc/X11/xinit/xinitrc  "$HOME/.xinitrc"
   create_pictures
+  echo "Restart to see changes"
 }
 
 # Copy Openbox configuration files
@@ -253,6 +259,7 @@ copy_openbox_configuration() {
   curl -fsSL https://codeberg.org/hecdelatorre/Dotfiles-Backup/raw/branch/main/config-files/openbox-tint2-picom.tar.xz | tar Jxf - -C "$config"
   cp -f /etc/X11/xinit/xinitrc  "$HOME/.xinitrc"
   create_pictures
+  echo "Restart to see changes"
 }
 
 # Function to copy kitty configuration
@@ -274,8 +281,20 @@ copy_xterm_configuration() {
     mv -f OpenType "$tipography_ibm"
   fi
   sudo apt install -y xterm
-  curl -fsSL https://codeberg.org/hecdelatorre/Dotfiles-Backup/raw/branch/main/config-files/.Xresources | tee "$HOME/.Xresources"
+  curl -fsSL https://codeberg.org/hecdelatorre/Dotfiles-Backup/raw/branch/main/config-files/.Xresources > "$HOME/.Xresources"
   xrdb -merge ~/.Xresources
+}
+
+# function to copy vim and neovim configuration
+copy_vim_neovim_configuration() {
+  if [ -d "$config/nvim" ]; then
+      rm -rf "$config/nvim"
+  fi
+  sudo apt install -y vim neovim
+  curl -fsSL https://codeberg.org/hecdelatorre/Dotfiles-Backup/raw/branch/main/config-files/.vimrc > "$HOME/.vimrc"
+  curl -fsSL https://codeberg.org/hecdelatorre/Dotfiles-Backup/raw/branch/main/config-files/nvim.tar.xz | tar Jxf - -C "$config"
+  echo -e "Install vim plug for neovim from this site run PlugInstall\nhttps://github.com/junegunn/vim-plug"
+  echo -e "Install nodejs for coc\nhttps://github.com/nodesource/distributions?tab=readme-ov-file#debian-and-ubuntu-based-distributions"
 }
 
 # Main menu
@@ -286,7 +305,8 @@ menu=(
   "4 Install General Apps"
   "5 Copy kitty terminal configuration"
   "6 Copy xterm terminal configuration"
-  "7 Exit"
+  "7 Copy vim and neovim configuration"
+  "8 Exit"
 )
 
 while true; do
@@ -299,10 +319,12 @@ while true; do
     "2 Install BSPWM")
       install_packages "${common_packages[@]}" "${bspwm_packages[@]}"
       copy_bswm_configuration
+      enter_continue
       ;;
     "3 Install Openbox")
       install_packages "${common_packages[@]}" "${openbox_packages[@]}"
       copy_openbox_configuration
+      enter_continue
       ;;
     "4 Install General Apps")
       install_packages "${general_apps[@]}"
@@ -313,7 +335,11 @@ while true; do
     "6 Copy xterm terminal configuration")
       copy_xterm_configuration
       ;;
-    "7 Exit")
+    "7 Copy vim and neovim configuration")
+      copy_vim_neovim_configuration
+      enter_continue
+      ;;
+    "8 Exit")
       echo "Exiting..."
       exit 0
       ;;
