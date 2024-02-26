@@ -199,7 +199,7 @@ copy_openbox_configuration() {
 
 # Function to copy kitty configuration
 copy_kitty_configuration() {
-    FONT_FIRACODE_NERDFONT="$FONTS_DIR/FiraFontNF"
+    FONT_FIRACODE_NERDFONT="$FONTS_DIR/FiraCodeNF"
     if [ ! -d "$FONT_FIRACODE_NERDFONT" ]; then
         mkdir "$FONT_FIRACODE_NERDFONT"
         curl -fsSL https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/FiraCode.zip -o temp.zip
