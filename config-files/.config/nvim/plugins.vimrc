@@ -68,6 +68,16 @@ let g:coc_global_extensions = [
 "\    'coc-intelephense',
 " Install extensions -> https://github.com/neoclide/coc.nvim/wiki/Using-coc-extensions
 
+" Multi cursor
+let g:multi_cursor_start_word_key      = '<C-n>'
+let g:multi_cursor_select_all_word_key = '<A-n>'
+let g:multi_cursor_start_key           = 'g<C-n>'
+let g:multi_cursor_select_all_key      = 'g<A-n>'
+let g:multi_cursor_next_key            = '<C-n>'
+let g:multi_cursor_prev_key            = '<C-p>'
+let g:multi_cursor_skip_key            = '<C-x>'
+let g:multi_cursor_quit_key            = '<Esc>'
+
 " Rust
 let g:rustfmt_autosave = 1
 let g:rust_clip_command = 'xclip -selection clipboard'
